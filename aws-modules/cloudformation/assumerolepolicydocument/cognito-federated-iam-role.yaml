@@ -1,0 +1,23 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: CloudFormation template creating an IAM Role enabling federated access via Amazon Cognito
+
+Parameters:
+    CognitoIdentityPoolId:
+        Type: String
+        Description: The Cognito Identity Pool ID to allow access to
+
+Resources:
+    BaeldungOpsRole:
+        Type: AWS::IAM::Role
+        Properties:
+            RoleName: baeldung-ops-role
+            AssumeRolePolicyDocument:
+                Version: 2012-10-17
+                Statement:
+                    - Effect: Allow
+                      Principal:
+                          Federated: cognito-identity.amazonaws.com
+                      Action: sts:AssumeRoleWithWebIdentity
+                      Condition:
+                          StringEquals:
+                              cognito-identity.amazonaws.com:aud: !Ref CognitoIdentityPoolId

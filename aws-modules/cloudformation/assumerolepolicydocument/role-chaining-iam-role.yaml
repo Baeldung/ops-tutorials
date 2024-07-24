@@ -1,0 +1,20 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: CloudFormation template creating an IAM Role enabling role-chaining
+
+Parameters:
+    IAMRoleName:
+        Type: String
+        Description: Name of the IAM role to enable access to
+
+Resources:
+    BaeldungOpsElevatedRole:
+        Type: AWS::IAM::Role
+        Properties:
+            RoleName: baeldung-ops-elevated-role
+            AssumeRolePolicyDocument:
+                Version: 2012-10-17
+                Statement:
+                    - Effect: Allow
+                      Principal:
+                          AWS: !Sub arn:aws:iam::${AWS::AccountId}:role/${IAMRoleName}
+                      Action: sts:AssumeRole

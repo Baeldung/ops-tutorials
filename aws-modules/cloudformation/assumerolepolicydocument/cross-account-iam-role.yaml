@@ -1,0 +1,23 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: CloudFormation template creating an IAM role enabling cross-account access
+
+Parameters:
+    TrustedAccountId:
+        Type: String
+        Description: The AWS account ID that is trusted to assume this role
+    IAMUserName:
+        Type: String
+        Description: The IAM user name that is allowed to assume this role
+
+Resources:
+    BaeldungOpsRole:
+        Type: AWS::IAM::Role
+        Properties:
+            RoleName: baeldung-ops-role
+            AssumeRolePolicyDocument:
+                Version: 2012-10-17
+                Statement:
+                    - Effect: Allow
+                      Principal:
+                          AWS: !Sub arn:aws:iam::${TrustedAccountId}:user/${IAMUserName}
+                      Action: sts:AssumeRole

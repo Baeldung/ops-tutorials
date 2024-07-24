@@ -1,0 +1,39 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: CloudFormation template creating an IAM role enabling Lambda function read access to S3 bucket
+
+Parameters:
+    S3BucketName:
+        Type: String
+        Description: Name of the S3 bucket to grant access to
+    LambdaFunctionName:
+        Type: String
+        Description: Name of the Lambda function
+    LambdaSourceCIDR:
+        Type: String
+        Description: CIDR block of the private Lambda function
+
+Resources:
+    BaeldungOpsRole:
+        Type: AWS::IAM::Role
+        Properties:
+            RoleName: baeldung-ops-role
+            Policies:
+                - PolicyName: s3-bucket-access
+                  PolicyDocument:
+                      Version: 2012-10-17
+                      Statement:
+                          - Effect: Allow
+                            Action: s3:GetObject
+                            Resource: !Sub arn:aws:s3:::${S3BucketName}/*
+            AssumeRolePolicyDocument:
+                Version: 2012-10-17
+                Statement:
+                    - Effect: Allow
+                      Principal:
+                          Service: lambda.amazonaws.com
+                      Action: sts:AssumeRole
+                      Condition:
+                          IpAddress:
+                              aws:SourceIp: !Ref LambdaSourceCIDR
+                          ArnLike:
+                              aws:SourceArn: !Sub arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:${LambdaFunctionName}
