@@ -11,7 +11,11 @@ pipeline {
         }
         stage('Test') {
             steps {
-                execute_stage('Test', params.skip_test)
+                execute_stage('Test', params.skip_test) {
+                    // Steps for the Test stage
+                    sh 'echo "Running tests"'
+                    // Additional test commands go here
+                }
             }
         }
         stage('Deploy') {
@@ -22,11 +26,10 @@ pipeline {
     }
 }
 
-def execute_stage(stage_name, skip) {
-    stage(stage_name) {
-        if(skip) {
-            echo "Skipping ${stage_name} stage"
-            return
-        }
-        // Add steps to test the application
+def execute_stage(stage_name, skip, Closure steps) {
+    if (skip) {
+        echo "Skipping ${stage_name} stage"
+    } else {
+        steps.call()
     }
+}
