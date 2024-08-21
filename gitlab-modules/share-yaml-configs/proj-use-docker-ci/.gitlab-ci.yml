@@ -1,0 +1,26 @@
+
+stages:
+  - prepare
+  - run
+
+prepare_jobs:
+  stage: prepare
+  image: $DOCKER_REGISTRY/baeldung-developers/docker-ci-files:v1
+  script:
+    - cp /test.yml ${CI_PROJECT_DIR}/test.yml
+    - cp /hello-world.yml ${CI_PROJECT_DIR}/hello-world.yml
+  artifacts:
+    paths:
+      - test.yml
+      - hello-world.yml
+
+run_jobs:
+  stage: run
+  needs: [prepare_jobs]
+  trigger:
+    strategy: depend
+    include:
+      - artifact: test.yml
+        job: prepare_jobs
+      - artifact: hello-world.yml
+        job: prepare_jobs

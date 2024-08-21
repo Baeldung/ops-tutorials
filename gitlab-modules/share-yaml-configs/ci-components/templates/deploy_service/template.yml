@@ -1,0 +1,16 @@
+spec:
+  inputs:
+    stage:
+      default: deploy
+    services:
+      type: array
+
+---
+
+deploy_monolith:
+  stage: $[[ inputs.stage ]]
+  parallel:
+    matrix:
+      - SERVICE: $[[ inputs.services ]]
+  script: |
+    echo "deploying $SERVICE"

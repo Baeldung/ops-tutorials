@@ -1,0 +1,27 @@
+# lines: 2-4 can be optional for multi-project pipeline and parent-child pipeline
+include:
+  - project: baeldung-developers/ci-common
+    file: .gitlab-ci.yml
+
+# uncomment lines: 7-9 to override hello_world job
+# hello_world:
+#   script:
+#     - echo "Hello, world! (modified)"
+
+# uncomment lines: 12-15 to extend .greeting job
+# hello_world_greeting:
+#   extends: .greeting
+#   variables:
+#     GREETING: "Hello, world!"
+
+# uncomment lines: 18-20 to run a multi-project pipeline
+# trigger_job_1:
+#   trigger:
+#       project: baeldung-developers/ci-common
+
+# uncomment lines: 23-27 to run a parent-child pipeline
+# trigger_job_2:
+#   trigger:
+#     include:
+#       - project: baeldung-developers/ci-common
+#         file: .gitlab-ci.yml

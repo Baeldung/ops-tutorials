@@ -1,0 +1,7 @@
+stages:
+  - deploy
+
+include:
+  - component: $CI_SERVER_FQDN/baeldung-developers/ci-components/deploy_service@1.0.0
+    inputs:
+      services: [s1, s2, s3, s4, s5, s6, s7]

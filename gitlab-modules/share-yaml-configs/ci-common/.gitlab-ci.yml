@@ -1,0 +1,8 @@
+hello_world:
+  script:
+    - echo "Hello, world!"
+
+.greeting:
+  script:
+    - echo "$GREETING"
+

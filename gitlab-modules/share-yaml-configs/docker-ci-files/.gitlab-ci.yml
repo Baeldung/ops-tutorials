@@ -1,0 +1,12 @@
+stages:
+  - build
+
+build_job:
+  image: docker:stable
+  services:
+    - docker:dind
+  stage: build
+  script:
+    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USER" --password-stdin $DOCKER_REGISTRY
+    - docker build -t $CI_REGISTRY_IMAGE:v1 .
+    - docker push $CI_REGISTRY_IMAGE:v1
