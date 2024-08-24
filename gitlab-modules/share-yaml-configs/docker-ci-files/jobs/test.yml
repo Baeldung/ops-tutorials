@@ -1,0 +1,3 @@
+test_job:
+  script:
+    - echo "test job"
