@@ -1,0 +1,7 @@
+workflow:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "web"
+
+test_job:
+  script:
+    - echo "job started with ui"
