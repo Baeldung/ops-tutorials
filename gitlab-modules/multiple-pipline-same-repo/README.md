@@ -1,12 +1,5 @@
 ### Setup
 
-#### Project Info
-Replace below configuration with your project details:
-
-Project group: baeldung-developers
-Project name: demo
-Project ID: 61297443
-
 #### Credentials
 Set up project access token and trigger token for the project and store them securely
 
