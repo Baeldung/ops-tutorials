@@ -1,0 +1,7 @@
+workflow:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+
+test_job:
+  script:
+    - echo "job started with trigger flow"

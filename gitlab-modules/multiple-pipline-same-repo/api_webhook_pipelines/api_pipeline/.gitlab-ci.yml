@@ -1,0 +1,7 @@
+workflow:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "api"
+
+test_job:
+  script:
+    - echo "job started with api flow"

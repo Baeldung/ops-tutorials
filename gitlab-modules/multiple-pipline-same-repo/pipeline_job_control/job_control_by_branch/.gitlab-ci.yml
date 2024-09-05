@@ -1,0 +1,11 @@
+job1:
+  rules:
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+  script:
+    - echo "job started for the default branch"
+
+job2:
+  rules:
+    - if: '$CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH'
+  script:
+    - echo "job started for a non-default branch"

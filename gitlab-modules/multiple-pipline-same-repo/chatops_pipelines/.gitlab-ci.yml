@@ -1,0 +1,7 @@
+workflow:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "chat"
+
+test_job:
+  script:
+    - echo "job starated with chat ops flow"
