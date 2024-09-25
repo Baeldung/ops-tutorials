@@ -1,0 +1,32 @@
+name: Print Branch Name On Push and Pull Requests
+
+on:
+  push:
+    branches:
+      - "*"
+  pull_request:
+    branches:
+      - "*"
+
+jobs:
+  print-branch-name:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Get branch name
+        id: get-branch-name
+        run: |
+          if [ "${{ github.event_name }}" == "pull_request" ]; then
+            echo "BRANCH_NAME=${{ github.head_ref }}" >> $GITHUB_OUTPUT
+          else
+            echo "BRANCH_NAME=${GITHUB_REF##*/}" >> $GITHUB_OUTPUT
+          fi
+        shell: bash
+
+      - name: Print branch name
+        run: |
+          echo "Branch name: ${{ steps.get-branch-name.outputs.BRANCH_NAME }}"
+        shell: bash
