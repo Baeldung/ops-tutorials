@@ -5,7 +5,7 @@ FROM python:3.9-slim
 WORKDIR /app
 
 # Copy the Python script into the container
-COPY script.py .
+COPY ../script.py .
 
 # Run the Python script and keep the container running
 CMD ["sh", "-c", "python script.py && tail -f /dev/null"]

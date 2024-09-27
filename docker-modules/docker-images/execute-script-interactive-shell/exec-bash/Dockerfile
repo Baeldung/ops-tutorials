@@ -5,7 +5,7 @@ FROM python:3.9-slim
 WORKDIR /app
 
 # Copy the Python script into the container
-COPY script.py .
+COPY ../script.py .
 
 # Run the Python script and then drop into an interactive shell
 CMD ["sh", "-c", "python script.py && exec bash"]
