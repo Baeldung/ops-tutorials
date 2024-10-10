@@ -8,4 +8,5 @@
 - [Rebuild Docker Container in Docker Compose](https://www.baeldung.com/ops/rebuild-docker-container-compose)
 - [Exclude a Sub-Folder When Adding a Volume to Docker](https://www.baeldung.com/ops/docker-exclude-sub-folder-when-adding-volume)
 - [Communicating With Docker Containers on the Same Machine](https://www.baeldung.com/ops/docker-communicating-with-containers-on-same-machine)
+- [Unable to Access MySQL Container in Docker-Compose Setup](https://www.baeldung.com/ops/docker-compose-setup-access-mysql-container)
 
