@@ -1,0 +1,10 @@
+services:
+
+  db:
+    image: mysql:8.4.2
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: mysql84-root-pw
+      MYSQL_DATABASE: test
+      MYSQL_USER: mysql_8_user
+      MYSQL_PASSWORD: mysql84-user-pw
