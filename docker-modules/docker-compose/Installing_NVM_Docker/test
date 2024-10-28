@@ -28,3 +28,6 @@ RUN source ~/.bashrc
 
 # Optional: install a specific Node.js version with NVM if needed
 # RUN source ~/.bashrc && nvm install 16
+
+# Updating node.js Version With Nvm
+RUN nvm install 18 && RUN nvm alias default 18
