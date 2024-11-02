@@ -1,0 +1,34 @@
+stages:
+  - stage1
+  - stage2
+  - stage3
+
+job1:
+  stage: stage1
+  script:
+    - echo "job1 - executing task1" > task1.txt
+    - echo "job1 - executing task2" > task2.txt
+  artifacts:
+    paths:
+      - task1.txt
+      - task2.txt
+
+job2:
+  stage: stage2
+  script:
+    - cat task1.txt
+    - cat task2.txt
+    - echo "job2 - executing task1" > task1.txt
+    - echo "job2 - executing task2" > task2.txt
+  artifacts:
+    paths:
+      - task1.txt
+      - task2.txt
+
+job3:
+  stage: stage3
+  dependencies:
+    - job1
+  script:
+    - cat task1.txt
+    - cat task2.txt

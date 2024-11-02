@@ -1,0 +1,43 @@
+stages:
+  - stage1
+  - stage2
+  - stage3
+
+job1:
+  stage: stage1
+  needs: []
+  script:
+    - echo "job1 - executing task1" > task1.txt
+    - echo "job1 - executing task2" > task2.txt
+  artifacts:
+    paths:
+      - task1.txt
+      - task2.txt
+
+job2:
+  stage: stage2
+  needs: []
+  script:
+    - echo "job2 - executing task1" > task1.txt
+    - echo "job2 - executing task2" > task2.txt
+  artifacts:
+    paths:
+      - task1.txt
+      - task2.txt
+
+job3:
+  stage: stage3
+  needs: 
+    - job: job1
+      artifacts: false
+    - job: job2
+      artifacts: false
+  script: |
+    for job in job1 job2
+    do
+        curl --silent --location --output artifacts_job1.zip \
+          "https://gitlab.com/api/v4/projects/$CI_PROJECT_ID/jobs/artifacts/$CI_COMMIT_BRANCH/download?job=$job&job_token=$CI_JOB_TOKEN"
+        unzip -o artifacts_job1.zip
+        cat task1.txt
+        cat task2.txt
+    done
