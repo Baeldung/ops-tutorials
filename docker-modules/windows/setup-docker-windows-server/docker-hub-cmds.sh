@@ -2,14 +2,14 @@ docker login [OPTIONS] [SERVER]
 
 docker login -u username -p password
 
-docker image tag helloworld dvohra/helloworld
+docker image tag helloworld baeldung/helloworld
 
 docker images
 
-docker push dvohra/helloworld
+docker push baeldung/helloworld
 
-docker rmi dvohra/helloworld
+docker rmi baeldung/helloworld
 
-docker pull dvohra/helloworld
+docker pull baeldung/helloworld
 
-docker run --rm dvohra/helloworld cmd.exe /s /c echo "Hello!"
+docker run --rm baeldung/helloworld cmd.exe /s /c echo "Hello!"
