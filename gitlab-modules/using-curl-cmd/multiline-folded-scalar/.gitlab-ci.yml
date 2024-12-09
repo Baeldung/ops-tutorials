@@ -1,0 +1,7 @@
+curl_job:
+  variables:
+    REQUEST_BODY: '{"title":"foo", "body":"foo: bar", "userId":1}'
+  script: >
+    curl --silent -X POST "https://jsonplaceholder.typicode.com/posts"
+    -H "Content-Type: application/json"
+    -d "${REQUEST_BODY}"

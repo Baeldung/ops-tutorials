@@ -1,0 +1,3 @@
+curl_job:
+  script:
+    - curl -X POST "https://jsonplaceholder.typicode.com/posts" -H "Content-Type: application/json" -d '{"title": "foo", "body": "bar", "userId": 1}'
