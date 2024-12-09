@@ -1,0 +1,10 @@
+curl_job:
+  variables:
+    URL: "https://jsonplaceholder.typicode.com/posts"
+    HEADER: "-H \"Content-Type: application/json\""
+    BODY: "-d '{\"title\": \"foo\", \"body\": \"bar\", \"userId\": 1}'"
+    CURL: "curl"
+    METHOD: "-X POST" 
+  script:
+    - echo "$CURL $METHOD $URL $HEADER $BODY"
+    - 'eval "$CURL $METHOD $URL $HEADER $BODY"'
