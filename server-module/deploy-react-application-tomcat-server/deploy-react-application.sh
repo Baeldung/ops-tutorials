@@ -1,0 +1,1 @@
+sudo cp -r /home/kali/my-sample-app/build /opt/tomcat/updated/webapps/simpleapp
