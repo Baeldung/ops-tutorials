@@ -1,0 +1,11 @@
+node {
+    stage('Shell Check') {
+        // Linux/macOS example
+        def result = sh script: '[ -f myfile.txt ] &amp;&amp; echo "YES" || echo "NO"', returnStdout: true
+        if (result.trim() == "YES") {
+            echo "myfile.txt exists."
+        } else {
+            echo "myfile.txt missing."
+        }
+    }
+}
