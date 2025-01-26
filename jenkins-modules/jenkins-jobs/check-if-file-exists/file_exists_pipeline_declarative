@@ -1,0 +1,17 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Check File Declarative') {
+            steps {
+                script {
+                    if (fileExists('myfile.txt')) {
+                        echo "Found myfile.txt!"
+                    } else {
+                        echo "Did not find myfile.txt."
+                    }
+                }
+            }
+        }
+    }
+}
