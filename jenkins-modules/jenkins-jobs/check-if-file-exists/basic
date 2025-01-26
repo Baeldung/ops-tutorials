@@ -1,0 +1,9 @@
+node {
+    stage('Check File') {
+        if (fileExists('myfile.txt')) {
+            echo "File found." 
+        } else { 
+            echo "File not found." 
+        }
+    }
+}
