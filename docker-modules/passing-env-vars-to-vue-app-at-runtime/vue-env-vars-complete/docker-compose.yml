@@ -1,0 +1,11 @@
+version: "3.8"
+
+services:
+    vue-app:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        ports:
+            - "8080:80"
+        env_file:
+            - .env
