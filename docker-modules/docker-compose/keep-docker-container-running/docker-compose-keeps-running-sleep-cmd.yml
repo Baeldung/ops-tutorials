@@ -1,0 +1,4 @@
+services:
+  demo:
+    image: ubuntu
+    command: "sleep infinity"
