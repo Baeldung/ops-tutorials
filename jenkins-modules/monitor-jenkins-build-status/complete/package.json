@@ -1,0 +1,21 @@
+{
+    "name": "simple-nodejs-test",
+    "version": "1.0.0",
+    "description": "Simple Nodejs test",
+    "main": "'",
+    "scripts": {
+        "test": "jest"
+    },
+    "keywords": [
+        "nodejs"
+    ],
+    "author": "davydocsurg",
+    "license": "ISC",
+    "dependencies": {
+        "express": "^4.21.2"
+    },
+    "devDependencies": {
+        "jest": "^29.7.0",
+        "supertest": "^7.1.0"
+    }
+}
