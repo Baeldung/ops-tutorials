@@ -1,0 +1,4 @@
+# Docker Compose configuration file example that doesn't keep a container running
+services:
+  demo:
+    image: ubuntu
