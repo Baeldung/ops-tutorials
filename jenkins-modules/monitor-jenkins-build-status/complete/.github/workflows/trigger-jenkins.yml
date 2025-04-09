@@ -1,0 +1,59 @@
+name: GitHub Actions + Jenkins Integration
+
+on:
+    push:
+        branches:
+            - main
+
+jobs:
+    trigger-jenkins:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Securely Trigger Jenkins Build
+              env:
+                  JENKINS_URL: ${{ secrets.JENKINS_URL }}
+                  JENKINS_USER: ${{ secrets.JENKINS_USER }}
+                  JENKINS_API_TOKEN: ${{ secrets.JENKINS_API_TOKEN }}
+                  JENKINS_JOB_NAME: ${{ secrets.JENKINS_JOB_NAME }}
+                  JENKINS_SECRET_TOKEN: ${{ secrets.JENKINS_SECRET_TOKEN }}
+              run: |
+                  RESPONSE=$(curl -s -w "%{http_code}" -o output.txt \
+                  -X POST "$JENKINS_URL/job/$JENKINS_JOB_NAME/build?token=$JENKINS_SECRET_TOKEN" \
+                  --user "$JENKINS_USER:$JENKINS_API_TOKEN")
+
+                  if [[ $RESPONSE -ne 201 ]]; then
+                    echo "❌ Jenkins build trigger failed!"
+                    cat output.txt
+                    exit 1
+                  fi
+
+            - name: Monitor Jenkins Build Status
+              env:
+                  JENKINS_URL: ${{ secrets.JENKINS_URL }}
+                  JENKINS_USER: ${{ secrets.JENKINS_USER }}
+                  JENKINS_API_TOKEN: ${{ secrets.JENKINS_API_TOKEN }}
+                  JENKINS_JOB_NAME: ${{ secrets.JENKINS_JOB_NAME }}
+              run: |
+                  echo "🔍 Waiting for Jenkins build to start..."
+                  sleep 10  # Wait before checking status
+
+                  BUILD_URL="$JENKINS_URL/job/$JENKINS_JOB_NAME/lastBuild/api/json"
+
+                  while true; do
+                    STATUS=$(curl -s --user "$JENKINS_USER:$JENKINS_API_TOKEN" $BUILD_URL | jq -r '.result')
+
+                    if [[ "$STATUS" == "SUCCESS" ]]; then
+                      echo "✅ Jenkins Build Successful!"
+                      exit 0
+                    elif [[ "$STATUS" == "FAILURE" ]]; then
+                      echo "❌ Jenkins Build Failed!"
+                      exit 1
+                    elif [[ "$STATUS" == "null" ]]; then
+                      echo "⏳ Jenkins build still running..."
+                      sleep 10
+                    else
+                      echo "⚠️ Unexpected status: $STATUS"
+                      exit 1
+                    fi
+                  done
