@@ -1,6 +1,6 @@
 $ docker run --rm -it nvm
 
-//he following commands are to be run within container
+//The following commands are to be run within container
 
 nvm -v
 
