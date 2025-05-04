@@ -1,1 +1,1 @@
-$ docker build -t nvm:latest .
+docker build -t nvm:latest .
