@@ -1,8 +1,8 @@
-$ docker pull guolin/node-nvm-docker
+docker pull guolin/node-nvm-docker
 
-$ docker images
+docker images
 
-$ docker run 
+docker run 
 --name node-nvm 
 -it  
 guolin/node-nvm-docker 
