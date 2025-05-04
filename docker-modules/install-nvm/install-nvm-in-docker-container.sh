@@ -1,10 +1,10 @@
-$ docker run 
+docker run 
 -it 
 --name ubuntu-demo 
 ubuntu 
 /bin/bash -c "echo 'Hello World'; /bin/bash"
 
-//The following commands are to be run within the container
+#The following commands are to be run within the container
 apt update && apt install curl -y
 
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.2/install.sh | bash
