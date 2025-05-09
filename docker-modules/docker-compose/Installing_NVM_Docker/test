@@ -1,0 +1,30 @@
+# Sets the base image of Docker container to Ubuntu 20.04
+FROM ubuntu:20.04
+
+# First stage: Build environment to install dependencies and download NVM
+FROM node:14 as build-stage
+
+# Update package list and install curl (only needed for the build stage)
+RUN apt-get update && apt-get install -y curl
+
+# Copy NVM setup from the build stage
+COPY --from=build-stage /app /app
+
+# Set working directory inside the container
+WORKDIR /app
+
+# Install NVM using the official installation script
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+
+# Configure NVM environment to be available in all sessions
+RUN echo "export NVM_DIR=\"$HOME/.nvm\"" >> ~/.bashrc \
+    && echo "[ -s \"$NVM_DIR/nvm.sh\" ] && \. \"$NVM_DIR/nvm.sh\"" >> ~/.bashrc
+
+# Final stage: Create a clean image without unnecessary build dependencies
+FROM node:14
+
+# Source bash profile to load NVM
+RUN source ~/.bashrc
+
+# Optional: install a specific Node.js version with NVM if needed
+# RUN source ~/.bashrc && nvm install 16
