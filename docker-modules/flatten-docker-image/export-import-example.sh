@@ -19,3 +19,7 @@ mysql-db
 docker import 
 mysql-db.tar 
 mysql-db:imported
+
+# Pipe export output to import
+docker export mysql-db | 
+docker import - mysql:flattened
