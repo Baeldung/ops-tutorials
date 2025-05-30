@@ -10,6 +10,4 @@ source docker-squash-env/bin/activate
 pip install docker-squash
 
 # Use docker-squash
-docker-squash 
--t mysql:squashed 
-mysql
+docker-squash -t mysql:squashed mysql
