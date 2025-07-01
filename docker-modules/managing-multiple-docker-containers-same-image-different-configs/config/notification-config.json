@@ -1,0 +1,6 @@
+{
+    "SERVICE_NAME": "notification-worker",
+    "ENVIRONMENT": "production",
+    "LOG_LEVEL": "info",
+    "PORT": 3006
+}

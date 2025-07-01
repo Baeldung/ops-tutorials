@@ -1,0 +1,24 @@
+services:
+  analytics_processor:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: analytics_processor
+    environment:
+      - CONFIG_PATH=/app/config.json
+    volumes:
+      - ./config/analytics-config.json:/app/config.json
+    ports:
+      - "3005:3005"
+
+  notification_worker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: notification_worker
+    environment:
+      - CONFIG_PATH=/app/config.json
+    volumes:
+      - ./config/notification-config.json:/app/config.json
+    ports:
+      - "3006:3006"

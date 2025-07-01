@@ -1,0 +1,6 @@
+{
+    "SERVICE_NAME": "analytics-processor",
+    "ENVIRONMENT": "staging",
+    "LOG_LEVEL": "debug",
+    "PORT": 3005
+}
