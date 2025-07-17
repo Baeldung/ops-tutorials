@@ -1,0 +1,36 @@
+# .github/workflows/chrome-test.yml
+name: Run Chrome Headless Test
+
+on: [push]
+
+jobs:
+  headless-test:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        
+      - name: Set up Docker
+        run: sudo apt-get update && sudo apt-get install -y docker.io
+        
+      - name: Build Chrome Docker image
+        run: docker build -t headless-chrome .
+        
+      - name: Run screenshot test
+        run: |
+          mkdir screenshots
+          docker run --rm \
+            -v ${{ github.workspace }}/screenshots:/screenshots \
+            headless-chrome \
+            --headless \
+            --disable-gpu \
+            --no-sandbox \
+            --screenshot=/screenshots/test.png \
+            https://google.com
+            
+      - name: Upload screenshot artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: screenshot
+          path: screenshots/test.png
